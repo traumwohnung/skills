@@ -2,26 +2,33 @@
 
 ## Photo quality is non-negotiable
 
-A bad photo sinks an otherwise good design. Either hire a professional or use high-quality stock (free sources exist). Never build around placeholders expecting to swap in casual phone photos later — it never holds up.
+A bad photo ruins a design even when everything around it is right. Great photography is lighting, composition, and color grading — skills, not equipment — so the options are:
+
+1. **Hire a professional** when the project needs specific, on-brand imagery.
+2. **Use high-quality stock** for generic needs; excellent free libraries exist alongside paid ones.
+
+Never design around placeholder images planning to "swap in some phone photos later" — the swap always downgrades the design, and by then the layout depends on imagery you can't produce.
 
 ## Text over images
 
-Photos have bright and dark regions, so no single text color survives across them. Fixes (combinable):
+The headline-on-hero-image problem: photos contain both bright and dark regions, so white text drowns in the light areas and dark text drowns in the shadows. No text color fixes this, because the problem is the image's dynamic range, not the text. Reduce the range:
 
-- **Overlay:** semi-transparent black layer for white text, white layer for dark text.
-- **Lower the image contrast** (adjust brightness to compensate) — flattens the dynamic range so text contrast stays consistent.
-- **Colorize:** lower contrast, desaturate, then apply a solid brand color with multiply blend. Also harmonizes arbitrary photos with the palette.
-- **Text shadow:** a wide-blur, zero-offset "glow" adds contrast exactly where the text is, letting you preserve more of the image's dynamics.
+- **Overlay:** a semi-transparent black layer tames highlights so white text works; a white layer lifts shadows for dark text. Simple, but it lightens/darkens the whole image.
+- **Lower the image's contrast** for finer control, compensating with a brightness adjustment so the image doesn't shift overall tone.
+- **Colorize:** lower contrast, desaturate, then apply a solid brand color with a multiply blend. Kills the dynamics *and* makes any stock photo harmonize with the palette.
+- **Text shadow:** a soft glow — large blur, no offset — adds contrast exactly where the text sits, letting you preserve more of the image's character. Best combined with a milder contrast reduction.
 
 ## Everything has an intended size
 
-- **Don't scale icons up.** A 16–24px icon blown to 3–4× looks chunky and undetailed even as SVG. Need to fill a large slot? Keep the icon near its intended size inside a colored shape (circle/square).
-- **Don't scale icons down** either — detail turns to mush. Favicons and other tiny marks need a redrawn, simplified version at target size.
-- **Don't shrink full screenshots.** A 70%-scaled app screenshot renders body text at ~4px. Options: screenshot at a smaller viewport (tablet layout), crop to a partial screenshot, or draw a simplified mock (blocks instead of text) when the big picture is all that matters.
+Scaling artwork away from the size it was drawn for degrades it — in both directions, and vector formats don't grant immunity:
+
+- **Icons up:** a 16–24px icon enlarged 3–4× stays sharp as SVG but looks chunky and undetailed — it was drawn with the detail budget of a small size. To fill a large slot (feature sections, landing pages), keep the icon near its native size and enclose it in a colored shape (circle, rounded square). The shape fills the space; the icon keeps its proportions.
+- **Icons down:** detail designed for larger sizes turns to mush when shrunk. The extreme case is the favicon: never shrink a full logo to 16px — redraw a radically simplified mark at the target size so you control what survives, not the browser's resampler.
+- **Screenshots down:** a full-desktop screenshot shrunk ~70% to fit a marketing layout renders 16px UI text at ~4px — unreadable and squint-inducing. Alternatives: capture at a smaller viewport (the tablet layout) and give it generous space; crop to a partial screenshot shown at full size; or, when only the gestalt matters, draw a simplified mock with lines standing in for text so nobody is tempted to read it.
 
 ## User-uploaded content
 
-You can't art-direct what users upload, so defend the layout:
+You can't art-direct uploads — no cropping, color-correcting, or contrast-tuning in advance — so build the defenses into the layout:
 
-- **Fix shape and size:** render into fixed containers with center-crop (`object-fit: cover` or background-size cover). Never let intrinsic aspect ratios dictate layout.
-- **Prevent background bleed:** when an uploaded image's background nearly matches the UI background, its silhouette dissolves. A subtle *inner* box shadow keeps the boundary visible — outer borders clash with image colors. A semi-transparent inner border works too.
+- **Control shape and size:** render images into fixed containers, centered and cropped (`object-fit: cover` / `background-size: cover`). Letting intrinsic aspect ratios through wrecks any multi-image layout.
+- **Prevent background bleed:** an upload whose background matches your UI background loses its silhouette and melts into the page. Don't reach for a border — borders clash with the image's own colors. Use a subtle **inner** box shadow, which reads as a boundary without competing; a semi-transparent inner border is a good alternative if the slight inset look bothers you.

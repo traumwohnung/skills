@@ -2,52 +2,52 @@
 
 ## White space: start with too much
 
-The instinct is to add space only until things stop looking cramped — that produces the bare minimum of breathing room. Invert the process: give everything clearly too much space, then remove until it looks right. What feels excessive on one element usually reads as "just enough" in a full page.
+The standard workflow adds space only when something looks cramped — which yields the bare minimum of breathing room everywhere, a design that merely avoids looking bad. Invert it: give elements clearly too much space, then pull space out until you're satisfied. What feels excessive zoomed into one element usually reads as "just enough" in the context of the full page.
 
-Dense UIs (data-heavy dashboards) are valid, but density must be a deliberate choice, not the default.
+Dense layouts (data-heavy dashboards where everything must fit one screen) are legitimate — but density must be a deliberate trade, never the default you drifted into. It's much easier to notice "too much space" and remove it than to notice "slightly too little" and add it.
 
 ## The spacing scale
 
-Never nitpick between adjacent pixel values. Use a fixed scale built from a 16px base:
+Never deliberate between adjacent pixel values. Use a fixed scale built on a 16px base (also the browser default font size, and cleanly divisible):
 
 ```
 4, 8, 12, 16, 24, 32, 48, 64, 96, 128, 192, 256, 384, 512, 640, 768
 ```
 
-Key property: adjacent values differ by ~25% or more. Small values sit close together (a 4px change to button padding is huge); large values spread out (a 20px change to a hero section is invisible). A naive "multiples of 4" rule fails because it still forces you to choose between 120 and 124.
+The defining property: adjacent values differ by at least ~25%, with the small end packed and the large end spread out. This is what "multiples of 4" misses: a 4px difference is enormous in button padding (12→16px is a 33% jump) and invisible in a card width (500→520px is 4%). Relative difference is what the eye perceives, so the scale must be relative too.
 
-To pick a value: guess, then compare against the neighbors above and below. The wrong ones are obvious side by side.
+To pick a value: guess, then set the neighboring values beside it for comparison. Two of the three are usually obviously wrong; if an outer one wins, re-center on it and compare again.
 
 ## Ambiguous spacing is a bug
 
-When groups are separated only by whitespace (no borders/backgrounds), space *within* a group must be visibly smaller than space *around* it:
+When groups are separated only by whitespace — no borders or background changes — the space *within* a group must be visibly smaller than the space *around* it. Violations force users to work out the grouping, and occasionally to get it wrong:
 
-- Form labels must sit closer to their own input than to the field above.
-- Section headings need more space above than below.
-- List items need more space between items than between wrapped lines within an item.
-- Horizontally grouped controls (e.g. icon + its label) must sit closer to each other than to neighboring groups.
+- A form label equidistant from its own input and the previous field visually belongs to neither — worst case, data lands in the wrong field.
+- Section headings need clearly more space above than below, or they float between sections.
+- List items whose gaps match the internal line-height read as one run-on blob.
+- Horizontal arrangements have the same failure: an icon must sit closer to its own label than to the neighboring group.
 
-If a user has to think about what belongs to what, the layout has failed — and it looks worse, too.
+Interfaces that are hard to parse always look worse, independent of styling.
 
 ## Don't fill the screen
 
-Wide canvas ≠ wide content. If content needs 600px, use 600px and let the margins breathe. Over-stretched interfaces are harder to read. Sections don't have to match each other's width either — a full-width nav doesn't obligate a full-width form.
+A wide canvas is not an obligation. If the content needs 600px, use 600px — spreading content to fill 1200–1400px actively hurts comprehension, while margin never hurt anything. This holds per-section too: a full-width nav doesn't require the form below it to be full-width. Give each element the width its content wants, and don't degrade one element to make it match another.
 
-- Struggling with a small component on a big canvas? Shrink the canvas. Designing mobile-first (~400px) forces good decisions that mostly survive the scale-up.
-- Content too narrow for the page but shouldn't stretch? Split into columns (e.g. move a form's help text into a side column) instead of widening the form.
-- Conversely, don't cram: if something genuinely needs width, take it.
+- **Hard to design small on a big canvas? Shrink the canvas.** Design at ~400px first; real constraints make the decisions easier. Then port to desktop and fix only what felt like a compromise — usually less than expected.
+- **Content too narrow for the page but shouldn't stretch? Split into columns.** A narrow form that looks unbalanced on a wide page keeps its optimal width when its supporting text moves into a side column — balance without sacrificing usability.
+- **Don't force compactness either.** Needing lots of space is fine; cramming to no purpose is the same mistake mirrored.
 
 ## Grids are a tool, not a religion
 
-Percentage-based grid columns are wrong for elements with content-driven sizes:
+A percentage grid outsources sizing decisions that some elements shouldn't delegate:
 
-- **Sidebars:** fixed width sized to their content; let the main area flex.
-- **Cards/modals/forms:** `max-width` at their optimal size; shrink only when the viewport forces it. A 50%-wide login card is too narrow on medium screens and too wide on huge ones — `max-width: 500px` is right everywhere.
-- Within components: use percentages only for things that should actually scale.
+- **Sidebars:** a 25%-wide sidebar grows with the viewport, stealing width the content could use, and collapses below its minimum on small screens. Give it a fixed width sized to its contents and let the main area flex.
+- **Cards, modals, forms:** fluid columns produce a paradox — a 6-column login card can be *narrower on a large screen* than an 8-column one on a medium screen. If 500px is the optimal width, nothing is gained by ever shrinking below it while space exists. Use `max-width` at the optimal size and let it compress only when the viewport truly forces it.
+- **Inside components:** use percentages only for parts that should genuinely scale with their container.
 
 ## Relative sizing doesn't scale
 
-Proportions that work at one size break at another:
+Encoded proportions assume relationships stay constant across sizes; they don't:
 
-- A 2.5× headline-to-body ratio on desktop becomes absurd on mobile; large text must shrink *faster* than small text. Define sizes per breakpoint instead of encoding ratios (`em`-based headlines).
-- Within components: button padding should not be a fixed multiple of font size. Large buttons want disproportionately generous padding; small buttons want disproportionately tight padding. Fine-tune each size variant independently.
+- A headline at 2.5× body size works on desktop, but on mobile — body at 14px — 2.5em means a 35px headline, far too big. The right mobile headline (20–24px) is only ~1.5× body. Large elements must shrink *faster* than small ones, so the "relationship" was never real. Define sizes per breakpoint instead of encoding ratios.
+- The same applies within components: if button padding is a multiple of font size, scaled variants merely look zoomed. Good large buttons carry disproportionately generous padding; good small buttons, disproportionately tight. Fine-tune each variant's properties independently.

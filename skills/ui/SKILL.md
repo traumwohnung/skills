@@ -14,6 +14,8 @@ Make interfaces look deliberately designed without needing artistic talent. The 
 3. **Systems kill decision fatigue.** Never hand-pick pixel values or colors ad hoc. Define constrained scales up front (below) and pick from them. When choosing between scale values, take a guess, then compare against the neighbors on either side — two of the three will usually be obviously wrong.
 4. **Personality is concrete.** Serious vs. playful is determined by four levers: typeface (serif = classic, rounded sans = playful, neutral sans = plain), color (blue = safe, gold = sophisticated, pink = playful), border radius (none = formal, large = friendly — pick one and stay consistent), and the tone of your copy. Decide the personality once, then apply the levers consistently.
 
+These four points are summaries — `references/process.md` covers the full workflow: feature-first design, working in short build/design cycles, scoping pessimistically, choosing a personality, and deciding by elimination. Read it when starting a design from scratch or planning a feature.
+
 ## The default systems
 
 Use these unless the project already has its own. All values in px (or the rem equivalent).
@@ -62,6 +64,7 @@ Buttons get small shadows, dropdowns medium, modals large. Pick the shadow by de
 
 Read the relevant file when working in that area:
 
+- `references/process.md` — starting from a blank canvas: feature-first, cycles, scope, personality, systematizing
 - `references/hierarchy.md` — controlling emphasis with size, weight, color, and contrast
 - `references/layout.md` — spacing, sizing, grids, responsive scaling
 - `references/typography.md` — fonts, line length/height, alignment, letter-spacing
