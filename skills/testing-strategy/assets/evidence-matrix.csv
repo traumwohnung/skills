@@ -1,0 +1,2 @@
+obligation_id,risk,invariant,layer,oracle,positive_case,negative_case,fault_point,cadence,owner,evidence,status
+INV-001,critical,"A committed operation is visible entirely or not at all",component-integration;fault,"Read durable state through an independent connection and assert no partial rows","Commit the complete operation and read it back","Crash after the first durable side effect and before acknowledgement","after-first-side-effect",pr;nightly,system-owner,"test command or artifact link",partial

@@ -1,0 +1,2 @@
+failure_id,boundary,failure_family,injection,timing,expected_safety,expected_liveness,recovery,oracle,cadence,status
+FAIL-001,"service to durable store",process-crash,"terminate the service at a named barrier","after durable commit before response","no partial or duplicate durable effect","a retry completes within the declared deadline","restart and replay the same operation","query durable state through an independent connection",nightly,gap

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Testing Strategy"
+  short_description: "Design evidence-driven software test strategies"
+  default_prompt: "Use $testing-strategy to audit this system and create a research-grounded, risk-based testing strategy."
